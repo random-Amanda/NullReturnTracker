@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: TrackNullReturn
-Bundle-SymbolicName: org.plugin.trackNullReturn;singleton:=true
+Bundle-SymbolicName: org.plugin.refactoringassistant;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui
 Automatic-Module-Name: org.plugin.trackNullReturn
@@ -12,6 +12,8 @@ Import-Package: org.apache.commons.io;version="2.6.0",
  org.eclipse.jdt.core,
  org.eclipse.jdt.core.dom,
  org.eclipse.jdt.core.dom.rewrite,
+ org.eclipse.jdt.internal.corext.dom,
+ org.eclipse.jdt.ui,
  org.eclipse.jface.text,
  org.eclipse.jface.text.source,
  org.eclipse.text.edits,

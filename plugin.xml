@@ -2,77 +2,41 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-         point="org.eclipse.ui.commands">
-      <category
-            id="org.plugin.trackNullReturn.commands.category"
-            name="Sample Category">
-      </category>
-      <command
-            categoryId="org.plugin.trackNullReturn.commands.category"
-            name="Sample Command"
-            id="org.plugin.trackNullReturn.commands.sampleCommand">
+   <extension point="org.eclipse.ui.menus">
+   	<menuContribution
+	    locationURI= "popup:org.eclipse.ui.popup.any">
+	    <menu 
+	    	id="org.plugin.refactoringassistant" label="Refactoring Assistant"
+	    	 icon="icons/sample.gif">
+	    </menu>
+	 </menuContribution>
+    <menuContribution
+          allPopups="true"
+          locationURI="popup:org.plugin.refactoringassistant">
+      <command commandId="returnnullfix.convert"
+        label="Fix return null" style="push">
+	        <visibleWhen>
+		   		<or>
+				    <with variable="activePartId">
+				      <equals value="org.eclipse.jdt.ui.CompilationUnitEditor" />
+				    </with>
+				    <with variable="activeMenuSelection">
+				      <iterate ifEmpty="false" operator="and">
+				        <or>
+				          <adapt type="org.eclipse.jdt.core.ICompilationUnit" />
+				        </or>
+				      </iterate>
+				    </with>
+			  </or>
+	       </visibleWhen> 
       </command>
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="org.plugin.tracknullreturn.handlers.SampleHandler"
-            commandId="org.plugin.trackNullReturn.commands.sampleCommand">
-      </handler>
-   </extension>
-   <extension
-         point="org.eclipse.ui.bindings">
-      <key
-            commandId="org.plugin.trackNullReturn.commands.sampleCommand"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            contextId="org.eclipse.ui.contexts.window"
-            sequence="M1+6">
-      </key>
-   </extension>
-   <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               id="org.plugin.trackNullReturn.menus.sampleMenu"
-               label="Sample Menu"
-               mnemonic="M">
-            <command
-                  commandId="org.plugin.trackNullReturn.commands.sampleCommand"
-                  id="org.plugin.trackNullReturn.menus.sampleCommand"
-                  mnemonic="S">
-            </command>
-         </menu>
-      </menuContribution>
-      <menuContribution
-            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-         <toolbar
-               id="org.plugin.trackNullReturn.toolbars.sampleToolbar">
-            <command
-                  id="org.plugin.trackNullReturn.toolbars.sampleCommand"
-                  commandId="org.plugin.trackNullReturn.commands.sampleCommand"
-                  icon="icons/sample.png"
-                  tooltip="Refactoring Assitant">
-            </command>
-         </toolbar>
-      </menuContribution>
-   </extension>
-   <extension
-       id="nullReturnMarker"
-       name="Null Return Marker"
-       point="org.eclipse.core.resources.markers">
-    <super
-          type="org.eclipse.jdt.core.problem">
-    </super>
-    <super
-          type="org.eclipse.core.resources.problemmarker">
-    </super>
-    <super
-          type="org.eclipse.core.resources.textmarker">
-    </super>
-    <persistent
-          value="true">
-    </persistent>
- </extension>
+    </menuContribution>
+  </extension>
+  
+  <extension point="org.eclipse.ui.commands">
+    <command defaultHandler="org.plugin.refactoringassistant.handlers.FixReturnNullHandler"
+      id="returnnullfix.convert" name="Refactoring Assistant">
+    </command>
+  </extension>
+
 </plugin>
