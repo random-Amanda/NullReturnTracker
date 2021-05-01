@@ -1,6 +1,6 @@
 # Fix Return Null
 
-This project is an Eclipse plugin that changes return null atatements and the relative method declerations.
+This project is an Eclipse plugin that changes return null statements and the related method declerations to use Java Optional instead.
 
 ![change](https://user-images.githubusercontent.com/34590815/116782186-4f32ff00-aaa5-11eb-9cd1-65ef9609f4cb.png)
 
